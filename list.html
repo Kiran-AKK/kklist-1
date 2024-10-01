@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiran's List</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Example CSS for the loader */
+        .loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: fixed;
+            width: 100%;
+            background-color: white;
+            z-index: 9999;
+        }
+        .disappear {
+            display: none;
+        }
+        /* Styling for the digital clock */
+        .digiclock {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        /* Styling for the container */
+        .container {
+            font-family: sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #result {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <!-- Digital Clock -->
+    <div class="digiclock" id="digi-Clock"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <p>Check Kiran's list: Enter your name to find out how much you're missed</p>
+        <input type="text" placeholder="Enter your name" id="searchInput">
+        <button onclick="searchName()">Search</button>
+        <div id="result"></div> <!-- Display the search result here -->
+    </div>
+
+    <!-- Loader -->
+    <div class="loader">
+        <img src="preload.gif" alt="Loading...">
+    </div>
+
+    <script>
+        // Function to display digital clock
+        function timecount() {
+            var date = new Date();
+            var h = date.getHours();
+            var m = date.getMinutes();
+            var s = date.getSeconds();
+            var session = h >= 12 ? " PM" : " AM";
+
+            if (h == 0) {
+                h = 12;
+            } else if (h > 12) {
+                h = h - 12;
+            }
+
+            h = (h < 10) ? "0" + h : h;
+            m = (m < 10) ? "0" + m : m;
+            s = (s < 10) ? "0" + s : s;
+
+            var time = "<span>" + h + "</span>:<span>" + m + "</span>:<span>" + s + "</span>" + session;
+            document.getElementById('digi-Clock').innerHTML = time;
+            setTimeout(timecount, 1000);
+        }
+
+        // Function to search names and display the result
+        function searchName() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const resultDiv = document.getElementById('result');
+
+            if (input === 'kyla ishie') {
+                resultDiv.textContent = "Kyla Ishie's rank is 1 in Kiran's list. Wow, you are in the 1st place, it means Kiran really missed you so much.";
+            } else if (input === 'hiraya') {
+                resultDiv.textContent = "Hiraya's rank is 2 in Kiran's list.";
+            } else if (input === 'yumeko') {
+                resultDiv.textContent = "Yumeko's rank is 3 in Kiran's list.";
+            } else if (input === 'yves') {
+                resultDiv.textContent = "Yves's rank is 4 in Kiran's list.";
+            } else {
+                resultDiv.textContent = "Name not found.";
+            }
+        }
+
+        // Start the timecount function on page load
+        timecount();
+
+        // Loader function to hide loader after page is loaded
+        document.addEventListener("DOMContentLoaded", function() {
+            var loader = document.querySelector(".loader");
+            loader.classList.add("disappear"); // Hide loader
+        });
+    </script>
+</body>
+</html>
